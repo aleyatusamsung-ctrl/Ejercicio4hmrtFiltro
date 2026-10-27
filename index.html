@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de productos</title>
+    <link rel="stylesheet" href="css/estilos5.css">
+</head>
+<body>
+
+    <header>
+        <h1>TECNO SHOP</h1>
+    </header>
+
+    <div class="filtros">
+        <input type="text" id="texto" placeholder="Buscar producto..." oninput="filtrar()">
+
+        <select id="categoria" onchange="filtrar()">
+            <option value="todas">Todas las categorías</option>
+            <option value="Tecnología">Tecnología</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Accesorios">Accesorios</option>
+        </select>
+    </div>
+
+    <p id="contador"></p>
+
+    <div id="mensaje">
+        <p>No hay productos que coincidan con tu búsqueda.</p>
+        <button onclick="limpiar()">Limpiar filtros</button>
+    </div>
+
+    <div class="contenedor">
+
+        <div class="producto" data-categoria="Tecnología">
+            <img src="imagenes/audifonos.jpg" alt="Audífonos Bluetooth">
+            <h2>Audífonos Bluetooth</h2>
+            <p>Sonido inalámbrico y batería de larga duración.</p>
+            <h3>S/ 129.90</h3>
+            <button>Comprar</button>
+        </div>
+
+        <div class="producto" data-categoria="Tecnología">
+            <img src="imagenes/laptop.jpg" alt="Laptop Lenovo">
+            <h2>Laptop Lenovo</h2>
+            <p>Potente y ligera para estudiar.</p>
+            <h3>S/ 2499.00</h3>
+            <button>Comprar</button>
+        </div>
+
+        <div class="producto" data-categoria="Tecnología">
+            <img src="imagenes/mouse.jpg" alt="Mouse inalámbrico">
+            <h2>Mouse inalámbrico</h2>
+            <p>Cómodo, preciso y sin cables.</p>
+            <h3>S/ 59.90</h3>
+            <button>Comprar</button>
+        </div>
+
+        <div class="producto" data-categoria="Ropa">
+            <img src="imagenes/polo.jpg" alt="Polo de algodón">
+            <h2>Polo de algodón</h2>
+            <p>Suave, fresco y de buena calidad.</p>
+            <h3>S/ 45.00</h3>
+            <button>Comprar</button>
+        </div>
+
+        <div class="producto" data-categoria="Ropa">
+            <img src="imagenes/zapatillas.jpg" alt="Zapatillas deportivas">
+            <h2>Zapatillas deportivas</h2>
+            <p>Ideales para correr todos los días.</p>
+            <h3>S/ 199.00</h3>
+            <button>Comprar</button>
+        </div>
+
+        <div class="producto" data-categoria="Accesorios">
+            <img src="imagenes/mochila.jpg" alt="Mochila escolar">
+            <h2>Mochila escolar</h2>
+            <p>Resistente, con varios compartimentos.</p>
+            <h3>S/ 89.00</h3>
+            <button>Comprar</button>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>© 2026 Tecno Shop</p>
+    </footer>
+
+<script>
+
+function filtrar() {
+
+    var texto = document.getElementById("texto").value.toLowerCase();
+    var categoria = document.getElementById("categoria").value;
+    var tarjetas = document.getElementsByClassName("producto");
+    var cantidad = 0;
+
+    for (var i = 0; i < tarjetas.length; i++) {
+
+        var nombre = tarjetas[i].getElementsByTagName("h2")[0].innerHTML.toLowerCase();
+        var cat = tarjetas[i].getAttribute("data-categoria");
+
+        if (nombre.includes(texto) && (categoria == "todas" || cat == categoria)) {
+            tarjetas[i].style.display = "block";
+            cantidad++;
+        } else {
+            tarjetas[i].style.display = "none";
+        }
+    }
+
+    document.getElementById("contador").innerHTML = "Resultados encontrados: " + cantidad;
+
+    if (cantidad == 0) {
+        document.getElementById("mensaje").style.display = "block";
+    } else {
+        document.getElementById("mensaje").style.display = "none";
+    }
+}
+
+function limpiar() {
+    document.getElementById("texto").value = "";
+    document.getElementById("categoria").value = "todas";
+    filtrar();
+}
+
+filtrar();
+
+</script>
+</body>
+</html>
